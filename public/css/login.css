@@ -1,0 +1,25 @@
+body {
+  background-color: #f8f9fa;
+}
+.login-card {
+  background-color: #ffffff; 
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+.login-card h4 {
+  background-color: #4E73DF;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 8px 8px 0 0;
+}
+.btn-primary {
+  background-color: #4E73DF;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #4E73DF;
+}
+.form-control:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 5px rgba(108, 99, 255, 0.5); 
+}
