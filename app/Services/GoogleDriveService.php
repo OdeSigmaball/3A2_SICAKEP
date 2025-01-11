@@ -103,7 +103,19 @@ class GoogleDriveService
     //     }
     // }
 
-   
+    public function deleteFile($fileId)
+{
+    try {
+        $this->driveService->files->delete($fileId);
+        Log::info('File or folder deleted from Google Drive: ', ['id' => $fileId]);
+        return true; // Indikasi bahwa penghapusan berhasil
+    } catch (\Exception $e) {
+        Log::error('Failed to delete file or folder: ' . $e->getMessage());
+        throw new \Exception("Failed to delete file or folder: " . $e->getMessage());
+    }
+}
+
+
 
 
 

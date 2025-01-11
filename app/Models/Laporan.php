@@ -17,7 +17,7 @@ class Laporan extends Model
         'nama_laporan',
         'dokumen',
         'id_kegiatan',
-        'id_user',
+        'user_upload',
         'id_media',
         'id_kategori'
     ];

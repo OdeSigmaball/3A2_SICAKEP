@@ -53,7 +53,8 @@
                         <td>{{$u->username}}</td>
                         <td>{{$u->email}}</td>
                         <td>{{$u->bidang}}</td>
-                        
+                        <td>{{$u->updated_at->DiffForHumans()}}</td>
+
                         <td>
                             <a href="{{route('edituser',$u->id)}}" class="mr-3 btn btn-primary">
                             <i class="fas fa-edit"></i>

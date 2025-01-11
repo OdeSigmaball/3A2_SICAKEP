@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama_laporan');
             $table->string('dokumen');
             $table->integer('id_kegiatan');
-            $table->integer('id_user');
+            $table->string('user_upload');
             $table->integer('id_kategori');
             $table->integer('id_media');
             $table->timestamps();

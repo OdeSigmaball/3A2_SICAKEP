@@ -7,6 +7,7 @@ use App\Models\Kategori;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use App\Services\GoogleDriveService;
+use Illuminate\Support\Facades\Auth;
 use Google\Service\CloudDebugger\Resource\Controller;
 
 class LaporanController extends Controller
@@ -30,7 +31,7 @@ class LaporanController extends Controller
     public function storedok(Request $request)
 {
     $request->validate([
-        'id_user' => 'required|exists:users,id',
+
         'id_kegiatan' => 'required|exists:kegiatans,id_kegiatan',
         'id_kategori' => 'required|exists:kategoris,id_kategori',
         'nama_laporan' => 'required|string|max:255',
@@ -48,15 +49,33 @@ class LaporanController extends Controller
 
         // Simpan informasi laporan ke database
         Laporan::create([
-            'id_user' => $request->id_user,
+
             'id_kegiatan' => $request->id_kegiatan,
             'id_kategori' => $request->id_kategori,
+            'user_upload' => Auth::user()->username,
             'nama_laporan' => $request->nama_laporan,
             'dokumen' => $uploadedFile->id, // Simpan ID file dari Google Drive
         ]);
 
-        return redirect()->route('laporan.create')->with('success', 'Laporan berhasil diunggah.');
-    } catch (\Exception $e) {
+
+
+
+        $bidang = $request->input('bidang');
+                 switch ($bidang) {
+                    case 'GTK':
+                        return redirect()->route('datalaporangtk.store')->with('success', 'Kegiatan berhasil ditambahkan.');
+                    case 'PAUD':
+                        return redirect()->route('datalaporanpaud.store')->with('success', 'Kegiatan berhasil ditambahkan.');
+                    case 'SEKDIS':
+                        return redirect()->route('datalaporansekdis.index')->with('success', 'Kegiatan berhasil ditambahkan.');
+                    case 'SD_SMP':
+                        return redirect()->route('datalaporansdsmp.index')->with('success', 'Kegiatan berhasil ditambahkan.');
+                    case 'PUBKOM':
+                        return redirect()->route('datalaporanpubkom.index')->with('success', 'Kegiatan berhasil ditambahkan.');
+                    default:
+                        return redirect()->back()->withErrors(['error' => 'Bidang tidak valid.']);
+                }
+        } catch (\Exception $e) {
         return redirect()->back()->withErrors(['error' => 'Gagal mengunggah file ke Google Drive: ' . $e->getMessage()]);
     }
 }

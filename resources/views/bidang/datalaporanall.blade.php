@@ -39,28 +39,33 @@
                     <thead>
                         <tr>
                         <th scope="col">No.</th>
-                        <th scope="col">Nama Kategori</th>
-                        <th scope="col">pembaruan terakhir</th>
-                        <th scope="col">action</th>
+                        <th scope="col">nama laporan</th>
+                        <th scope="col">nama dokumen</th>
+                        <th scope="col">user yang mengunggah</th>
+                        <th scope="col">Kategori</th>
+                        <th scope="col">Kegiatan</th>
+                        <th scope="col">last update</th>
+                        <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($kategori as $k )
+                        @foreach ($laporans as $laporan )
                         <tr>
                         <th scope="row">1</th>
-                        <td>{{$k->nama_kategori}}</td>
-                        <td>{{$k->updated_at->DiffForHumans()}}</td>
+                        <td>{{$laporan->nama_laporan}}</td>
+                        <td>{{$laporan->dokumen}}</td>
+                        <td>{{$laporan->user_upload}}</td>
+                        <td>{{$laporan->id_kategori}}</td>
+                        <td>{{$laporan->id_kegiatan}}</td>
+                        <td>{{$laporan->created_at}}</td>
 
                         <td>
-                            <a href="{{route('editkategori',$k->id_kategori)}}" class="mr-3 btn btn-primary">
-                            <i class="fas fa-edit"></i>
-                            </a>
 
 
-                                <a href="" onclick="return confirm('anda yakin mau menghapus data?')">
-                            <form class="p-0 m-0 btn btn-danger" method="post" action="{{route('deletekategori',$k->id_kategori)}}">
+                                <a href="" onclick="return confirm('Apakah anda yakin?')">
+                            <form class="p-0 m-0 btn btn-primar" method="post" action="{{route('deleteuser',$laporan->id_laporan)}}">
                                 @csrf
-                                <button type="submit" class="mr-3 btn btn-danger"><i class="fas fa-trash"></i></button>
+                                <button type="submit" class="mr-3 btn btn-primary">Detail</i></button>
                             </form>
                             </a>
                         </td>
@@ -85,13 +90,30 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('storekategori') }}" method="post">
+                <form action="{{ route('storeuser') }}" method="post">
                     @csrf
 
                     <div class="mb-3">
-                        <label for="kategori" class="form-label">Nama Kategori</label>
-                        <input type="text" class="form-control" id="kategori" placeholder="Masukkan kategori" name="namakategori">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="Masukkan Username" name="username">
                     </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Masukan Email" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tanggalKegiatan" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="bidang" placeholder="Masukan Password" name="password">
+                    </div>
+                    <label for="tanggalKegiatan" class="form-label">Bidang</label>
+                    <select class="form-select" aria-label="Default select example" name="bidang">
+                        <option value="admin" selected>admin</option>
+                        <option value="dinas">Kepala dinas</option>
+                        <option value="paud">Bidang PAUD</option>
+                        <option value="sdsmp">Bidang SD & SMP</option>
+                        <option value="gtk">Bidang GTK</option>
+                        <option value="pdk">Publikasi Dan Komunikasi</option>
+                    </select>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>

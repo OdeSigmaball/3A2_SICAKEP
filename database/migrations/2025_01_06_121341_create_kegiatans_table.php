@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('lokasi_kegiatan');
             $table->string('linkgdrive');
             $table->string('bidang');
+            $table->string('user_upload');
             $table->timestamps();
         });
     }

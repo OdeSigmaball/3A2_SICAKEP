@@ -28,14 +28,14 @@
                     <i class="fas fa-home"></i> Dashboard
                 </a>
             </li>
-            <li class="breadcrumb-item active text-dark" aria-current="page">Data Laporan SD & SMP</li>
+            <li class="breadcrumb-item active text-dark" aria-current="page">Data Laporan Sekretariat Dinas</li>
         </ol>
     </div>
 
     <!-- Main Content -->
     <div class="mb-4 shadow card">
         <div class="py-3 card-header d-flex justify-content-between align-items-center">
-            <h4 class="m-0 font-weight-bold text-primary">Data Laporan Kegiatan SD & SMP</h4>
+            <h4 class="m-0 font-weight-bold text-primary">Data Laporan Kegiatan Sekretariat Dinas</h4>
             <button class="btn btn-primary" data-toggle="modal" data-target="#tambahDataModal">
                 <i class="fas fa-plus"></i> Tambah Data
             </button>
@@ -55,7 +55,7 @@
                         </button>
                         <form method="post" action="{{ route('deleteFolderByName', $kegiatan->nama_kegiatan) }}" class="d-inline">
                             @csrf
-                            <input type="hidden" name="bidang" value="SD_SMP">
+                            <input type="hidden" name="bidang" value="SEKDIS">
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin?')">
                                 <i class="fas fa-trash"></i>
                             </button>
@@ -86,13 +86,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="nama_laporan">Nama Laporan</label>
-                                        <input type="text" name="nama_laporan" class="form-control" required>
+                                        <input type="text" name="nama_laporan" class="form-control" autocomplete="off" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="uploadFile">File</label>
                                         <input type="file" name="uploadFile" class="form-control" required>
                                     </div>
-                                    <input type="hidden" name="bidang" value="SD_SMP">
+                                    <input type="hidden" name="bidang" value="SEKDIS">
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
@@ -113,7 +113,7 @@
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('datalaporansdsmp.store') }}" method="POST">
+                    <form action="{{ route('datalaporansekdis.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="nama_kegiatan">Nama Kegiatan</label>
@@ -127,7 +127,7 @@
                             <label for="lokasi_kegiatan">Lokasi Kegiatan</label>
                             <input type="text" name="lokasi_kegiatan" class="form-control" required>
                         </div>
-                        <input type="hidden" name="bidang" value="SD_SMP">
+                        <input type="hidden" name="bidang" value="SEKDIS">
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>

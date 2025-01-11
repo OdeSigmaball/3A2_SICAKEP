@@ -3,6 +3,22 @@
 @section('container')
 <!-- Begin Page Content -->
 <div class="container-fluid">
+    @if(session()->has('success'))
+    <div class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+    {{session('success')}}
+    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+    @if($errors->any())
+        <div class="mt-1 alert alert-danger alert-dismissible fade show text-decoration-none" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error )
+                    <li class="text-decoration-none">{{$error}}</li>
+                @endforeach
+            </ul>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
 
     <!-- Breadcrumbs -->
     <div aria-label="breadcrumb">
@@ -46,8 +62,9 @@
                             <i class="fas fa-upload"></i>
                         </button>
                         <a href="" onclick="return confirm('Apakah anda yakin?')">
-                            <form class="p-0 m-0 btn btn-danger" method="post" action="{{ route('deleteKegiatan', $kegiatan->id_kegiatan) }}">
+                            <form class="p-0 m-0 btn btn-danger" method="post" action="{{ route('deleteFolderByName', $kegiatan->nama_kegiatan,$kegiatan->id_kegiatan) }}">
                                 @csrf
+                                <input type="hidden" name="bidang" value="GTK">
                                 <button type="submit" class="mr-3 btn btn-danger"><i class="fas fa-trash"></i></button>
                             </form>
                         </a>
@@ -65,23 +82,10 @@
                             <div class="modal-body">
                                 <form action="{{ route('laporan.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="form-group">
-                                        <label for="id_user">User</label>
-                                        <select name="id_user" id="id_user" class="form-control" required>
-                                            <option value="">Pilih User</option>
-                                            @foreach($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->username }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
 
                                     <div class="form-group">
                                         <label for="id_kegiatan">Kegiatan</label>
-                                        <select name="id_kegiatan" id="id_kegiatan" class="form-control" required>
-                                            @foreach($kegiatans as $kegiatan)
-                                                <option value="{{ $kegiatan->id_kegiatan }}">{{ $kegiatan->nama_kegiatan }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" name="id_kegiatan" id="nama_laporan" class="form-control" value="{{ $kegiatan->id_kegiatan }}" required>
                                     </div>
 
                                     <div class="form-group">
@@ -103,7 +107,7 @@
                                         <label for="uploadFile">File Laporan</label>
                                         <input type="file" name="uploadFile" id="uploadFile" class="form-control" required>
                                     </div>
-
+                                    <input type="hidden" name="bidang" value="GTK">
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
@@ -127,6 +131,10 @@
                 <div class="modal-body">
                     <form action="{{ route('datalaporangtk.store') }}" method="POST">
                         @csrf
+                        <div class="form-group">
+
+                            <input type="text" name="user_upload" id="nama_laporan" class="form-control" value="{{Auth::user()->username}}">
+                        </div>
                         <div class="mb-3">
                             <label for="namaKegiatan" class="form-label">Nama Kegiatan</label>
                             <input type="text" class="form-control" id="namaKegiatan" name="nama_kegiatan" placeholder="Masukkan nama kegiatan" required>

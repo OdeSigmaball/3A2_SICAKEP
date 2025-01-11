@@ -4,6 +4,7 @@ use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GdriveController;
+use App\Http\Controllers\DataAllController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\kategoriController;
@@ -28,9 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('bidang/datalaporanpaud',function(){
-    return view('bidang/datalaporanpaud',['judul'=>'Data Laporan PAUD']);
-});
+// Route::get('bidang/datalaporanpaud',function(){
+//     return view('bidang/datalaporanpaud',['judul'=>'Data Laporan PAUD']);
+// });
 
 Route::get('bidang/datalaporanpubkom',function(){
     return view('bidang/datalaporanpubkom',['judul'=>'Data Laporan PUBLIKASI DAN KOMUNIKASI']);
@@ -90,21 +91,57 @@ Route::middleware(['auth','bidang:admin'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     // Resource route untuk KegiatanController
-    Route::get('/bidang/datalaporangtk', [KegiatanController::class, 'index'])->name('laporan.create');
+    Route::get('/bidang/datalaporangtk', [KegiatanController::class, 'index'])->name('datalaporangtk.index');
     Route::post('/bidang/datalaporangtk/store', [KegiatanController::class, 'storedok'])->name('laporan.store');
     Route::post('/bidang/datalaporangtk', [KegiatanController::class, 'store'])->name('datalaporangtk.store');
     Route::post('bidang/datalaporangtk/{kegiatan}/upload', [KegiatanController::class, 'uploadFile'])->name('datalaporangtk.upload');
-    // Route::post('bidang/datalaporangtk/hapus/{id_kegiatan}', [KegiatanController::class, 'deleteKegiatan'])->name('deleteKegiatan');
-
-    Route::post('bidang/datalaporangtk/hapus/{id_kegiatan}', [KegiatanController::class, 'deleteKegiatan'])->name('deleteKegiatan');
+    Route::post('bidang/datalaporangtk/hapus/{id_kegiatan}', [KegiatanController::class, 'deleteFolderByName'])->name('deleteFolderByName');
 
 });
+
+Route::middleware(['auth'])->group(function () {
+    // Route untuk bidang PAUD
+    Route::get('/bidang/datalaporanpaud', [KegiatanController::class, 'paudV'])->name('datalaporanpaud.index');
+    Route::post('/bidang/datalaporanpaud/store', [KegiatanController::class, 'store'])->name('datalaporanpaud.store');
+    Route::post('/bidang/datalaporanpaud/{kegiatan}/upload', [KegiatanController::class, 'uploadFile'])->name('datalaporanpaud.upload');
+    Route::post('/bidang/datalaporanpaud/hapus/{id_kegiatan}', [KegiatanController::class, 'deleteFolderByName'])->name('datalaporanpaud.delete');
+});
+Route::middleware(['auth'])->group(function () {
+    // Route untuk bidang SD & SMP
+    Route::get('/bidang/datalaporansdsmp', [KegiatanController::class, 'sdsmpV'])->name('datalaporansdsmp.index');
+    Route::post('/bidang/datalaporansdsmp/store', [KegiatanController::class, 'store'])->name('datalaporansdsmp.store');
+    Route::post('/bidang/datalaporansdsmp/{kegiatan}/upload', [KegiatanController::class, 'uploadFile'])->name('datalaporansdsmp.upload');
+    Route::post('/bidang/datalaporansdsmp/hapus/{id_kegiatan}', [KegiatanController::class, 'deleteFolderByName'])->name('datalaporansdsmp.delete');
+});
+Route::middleware(['auth'])->group(function () {
+    // Route untuk bidang PUBLIKASI KOMUNIKASI
+    Route::get('/bidang/datalaporanpubkom', [KegiatanController::class, 'pubkomV'])->name('datalaporanpubkom.index');
+    Route::post('/bidang/datalaporanpubkom/store', [KegiatanController::class, 'store'])->name('datalaporanpubkom.store');
+    Route::post('/bidang/datalaporanpubkom/{kegiatan}/upload', [KegiatanController::class, 'uploadFile'])->name('datalaporanpubkom.upload');
+    Route::post('/bidang/datalaporanpubkom/hapus/{id_kegiatan}', [KegiatanController::class, 'deleteFolderByName'])->name('datalaporanpubkom.delete');
+});
+Route::middleware(['auth'])->group(function () {
+    // Route untuk bidang Sekretariat Dinas
+    Route::get('/bidang/datalaporansekdis', [KegiatanController::class, 'sekdisV'])->name('datalaporansekdis.index');
+    Route::post('/bidang/datalaporansekdis/store', [KegiatanController::class, 'store'])->name('datalaporansekdis.store');
+    Route::post('/bidang/datalaporansekdis/{kegiatan}/upload', [KegiatanController::class, 'uploadFile'])->name('datalaporansekdis.upload');
+    Route::post('/bidang/datalaporansekdis/hapus/{id_kegiatan}', [KegiatanController::class, 'deleteFolderByName'])->name('datalaporansekdis.delete');
+});
+Route::middleware(['auth'])->group(function () {
+    // Route untuk Data laporan
+    Route::get('/bidang/datalaporanall', [DataAllController::class, 'dataV'])->name('datalaporanall.index');
+    Route::post('/bidang/datalaporansekdis/store', [KegiatanController::class, 'store'])->name('datalaporansekdis.store');
+    Route::post('/bidang/datalaporansekdis/{kegiatan}/upload', [KegiatanController::class, 'uploadFile'])->name('datalaporansekdis.upload');
+    Route::post('/bidang/datalaporansekdis/hapus/{id_kegiatan}', [KegiatanController::class, 'deleteFolderByName'])->name('datalaporansekdis.delete');
+});
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/laporan/create', [LaporanController::class, 'create'])->name('laporan.create');
     Route::post('/laporan/store', [LaporanController::class, 'storedok'])->name('laporan.store');
 
 });
+// Route::get('/bidang/datalaporanpaud', [KegiatanController::class, 'paudV']);
 
 // Route::middleware(['auth'])->group(function () {
 //     // Resource route untuk KegiatanController
