@@ -49,7 +49,7 @@
                     <tbody>
                         @foreach ($user as $u )
                         <tr>
-                        <th scope="row">1</th>
+                            <th>{{ $loop->iteration }}</th>
                         <td>{{$u->username}}</td>
                         <td>{{$u->email}}</td>
                         <td>{{$u->bidang}}</td>

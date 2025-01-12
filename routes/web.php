@@ -129,7 +129,6 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::middleware(['auth'])->group(function () {
     // Route untuk Data laporan
-    Route::get('/bidang/datalaporanall', [DataAllController::class, 'dataV'])->name('datalaporanall.index');
     Route::post('/bidang/datalaporansekdis/store', [KegiatanController::class, 'store'])->name('datalaporansekdis.store');
     Route::post('/bidang/datalaporansekdis/{kegiatan}/upload', [KegiatanController::class, 'uploadFile'])->name('datalaporansekdis.upload');
     Route::post('/bidang/datalaporansekdis/hapus/{id_kegiatan}', [KegiatanController::class, 'deleteFolderByName'])->name('datalaporansekdis.delete');
@@ -139,6 +138,12 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/laporan/create', [LaporanController::class, 'create'])->name('laporan.create');
     Route::post('/laporan/store', [LaporanController::class, 'storedok'])->name('laporan.store');
+
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/bidang/datalaporanall', [DataAllController::class, 'dataV'])->name('datalaporanall.index');
+    Route::post('/bidang/{id_kegiatan}/datalaporanallshow', [DataAllController::class, 'showlaporan'])->name('laporan.show');
 
 });
 // Route::get('/bidang/datalaporanpaud', [KegiatanController::class, 'paudV']);
@@ -157,7 +162,7 @@ Route::middleware(['auth'])->group(function () {
 //     Route::post('/laporan/store', [LaporanController::class, 'storedok'])->name('laporan.store');
 // });
 
-Route::get('upload',[GdriveController::class, 'upload']);
+
 
 
 

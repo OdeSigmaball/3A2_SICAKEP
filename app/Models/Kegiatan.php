@@ -11,9 +11,9 @@ class Kegiatan extends Model
 
     protected $primaryKey = 'id_kegiatan';
 
-    protected $fillable = ['nama_kegiatan', 'lokasi_kegiatan', 'tanggal_kegiatan', 'bidang'];
+    protected $fillable = ['nama_kegiatan','user_upload', 'lokasi_kegiatan', 'tanggal_kegiatan', 'bidang'];
 
-    public function laporans()
+    public function laporan()
 {
     return $this->hasMany(Laporan::class, 'id_kegiatan');
 }

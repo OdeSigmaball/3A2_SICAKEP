@@ -22,14 +22,87 @@
 
    </div>
 <div class="p-3">
+    <div class="mb-1 shadow card">
+        <div class="mr card-header d-flex justify-content-between align-items-center">
+            <div>
+                <h4 class="m-0 font-weight-bold text-primary">Filter</h4>
+            </div>
+
+            </div>
+        <form action="{{ route('datalaporanall.index') }}" method="GET" class="p-3 mb-3 mr-0 ">
+
+                <!-- Filter Bidang -->
+                <!-- Form Filter -->
+
+            <div class="row">
+                <!-- Filter Bulan -->
+                <div class="col-md-3">
+                    <label for="bulan">Bulan</label>
+                    <select name="bulan" id="bulan" class="form-control">
+                        <option value="">Semua Bulan</option>
+                        @foreach (range(1, 12) as $m)
+                            <option value="{{ $m }}" {{ $bulan == $m ? 'selected' : '' }}>
+                                {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Filter Tahun -->
+                <div class="col-md-3">
+                    <label for="tahun">Tahun</label>
+                    <select name="tahun" id="tahun" class="form-control">
+                        <option value="">Semua Tahun</option>
+                        @foreach (range(now()->year, now()->year - 10) as $y)
+                            <option value="{{ $y }}" {{ $tahun == $y ? 'selected' : '' }}>
+                                {{ $y }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Filter Tanggal -->
+                <div class="col-md-3">
+                    <label for="tanggal">Tanggal</label>
+                    <select name="tanggal" id="tanggal" class="form-control">
+                        <option value="">Semua Tanggal</option>
+                        @foreach (range(1, 31) as $d)
+                            <option value="{{ $d }}" {{ $tanggal == $d ? 'selected' : '' }}>
+                                {{ $d }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Filter Bidang -->
+                <div class="col-md-3">
+                    <label for="bidang">Bidang</label>
+                    <select name="bidang" id="bidang" class="form-control">
+                        <option value="">Semua Bidang</option>
+                        <option value="GTK" {{ $bidang == 'GTK' ? 'selected' : '' }}>Guru dan Kependidikan</option>
+                        <option value="PAUD" {{ $bidang == 'PAUD' ? 'selected' : '' }}>Pendidikan Anak Usia Dini</option>
+                        <option value="PUBKOM" {{ $bidang == 'PUBKOM' ? 'selected' : '' }}>Publikasi DOkumentasi</option>
+                        <option value="SEKDIS" {{ $bidang == 'PUBKOM' ? 'selected' : '' }}>Sekretariat Dinas</option>
+                        <option value="SD_SMP" {{ $bidang == 'PUBKOM' ? 'selected' : '' }}>Sekolah Dasar dan Menengah</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mt-3 d-flex justify-content-end align-items-end">
+                <button type="submit" class="mt-0 btn btn-primary d-flex align-items-end">Filter</button>
+                </div>
+        </form>
+    </div>
+</div>
+
+<div class="p-3">
     <div class="mb-4 shadow card">
         <div class="py-3 card-header d-flex justify-content-between align-items-center">
             <div>
-                <h4 class="m-0 font-weight-bold text-primary">Data User</h4>
+                <h4 class="m-0 font-weight-bold text-primary">Data Semua Kegiatan</h4>
             </div>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahUserModal">
-                <i class="fas fa-plus"></i>
-            </button>
+            <!-- Filter Bidang -->
+
         </div>
 
         <div class="card-body">
@@ -39,31 +112,30 @@
                     <thead>
                         <tr>
                         <th scope="col">No.</th>
-                        <th scope="col">nama laporan</th>
-                        <th scope="col">nama dokumen</th>
+                        <th scope="col">nama kegiatan</th>
+                        <th scope="col">Lokasi kegiatan</th>
+                        <th scope="col">Bidang</th>
                         <th scope="col">user yang mengunggah</th>
-                        <th scope="col">Kategori</th>
-                        <th scope="col">Kegiatan</th>
-                        <th scope="col">last update</th>
+                        <th scope="col">dibuat</th>
+
                         <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($laporans as $laporan )
+                        @foreach ($kegiatan as $k )
                         <tr>
-                        <th scope="row">1</th>
-                        <td>{{$laporan->nama_laporan}}</td>
-                        <td>{{$laporan->dokumen}}</td>
-                        <td>{{$laporan->user_upload}}</td>
-                        <td>{{$laporan->id_kategori}}</td>
-                        <td>{{$laporan->id_kegiatan}}</td>
-                        <td>{{$laporan->created_at}}</td>
+                            <th>{{ $loop->iteration }}</th>
+                        <td>{{$k->nama_kegiatan}}</td>
+                        <td>{{$k->lokasi_kegiatan}}</td>
+                        <td>{{$k->bidang}}</td>
+                        <td>{{$k->user_upload}}</td>
+                        <td>{{$k->created_at}}</td>
 
                         <td>
 
 
-                                <a href="" onclick="return confirm('Apakah anda yakin?')">
-                            <form class="p-0 m-0 btn btn-primar" method="post" action="{{route('deleteuser',$laporan->id_laporan)}}">
+                                <a href="">
+                            <form class="p-0 m-0 btn btn-primar" method="post" action="{{route('laporan.show',$k->id_kegiatan)}}">
                                 @csrf
                                 <button type="submit" class="mr-3 btn btn-primary">Detail</i></button>
                             </form>
@@ -75,9 +147,12 @@
                     </table>
 
             </div>
-
+            <div class="d-flex justify-content-center mt-4">
+                {{ $kegiatan->links() }}
+            </div>
         </div>
     </div>
+
 </div>
 <!-- Begin Page Content End -->
 

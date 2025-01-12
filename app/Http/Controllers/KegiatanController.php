@@ -66,7 +66,7 @@ class KegiatanController extends Controller
         public function sekdisV()
     {
         $users = User::all();
-        $kegiatans = Kegiatan::where('bidang', operator: 'SEKRE')->get(); // Hanya kegiatan bidang Sekretariat Dinas
+        $kegiatans = Kegiatan::where('bidang', operator: 'SEKDIS')->get(); // Hanya kegiatan bidang Sekretariat Dinas
         $kategoris = Kategori::all();
 
         return view('bidang.datalaporansekdis', compact('users', 'kegiatans', 'kategoris'), ['judul' => 'Data Laporan Sekretariat Dinas']);

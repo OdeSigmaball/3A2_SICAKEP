@@ -4,8 +4,9 @@
 <div class="content">
 
 <nav class="bg-white shadow navbar navbar-expand navbar-light topbar static-top">
+    <img width="50" src="{{ URL::to('/') }}/images/Logo Tut Wuri Handayani.png" alt="Logo 1" class="ml-3 ">
+    <img width="50" src="{{ URL::to('/') }}/images/Logo Dinas Pendidikan Kabupaten Bangli.png" alt="Logo 1" class="ml-3 ">
     <img width="50" src="{{ URL::to('/') }}/images/BPMP Logo.jpg" alt="Logo 1" class="ml-3 logo">
-    <img width="50" src="{{ URL::to('/') }}/images/tutwurihandayani.png" alt="Logo 1" class="ml-3 ">
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="mr-3 btn btn-link d-md-none rounded-circle">
         <i class="fa fa-bars"></i>

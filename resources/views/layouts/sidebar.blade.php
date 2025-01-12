@@ -30,7 +30,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
+                bidang
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -53,10 +53,20 @@
                 </div>
             </li>
 
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
-
-
+            <li class="nav-item">
+                <div class="sidebar-heading">
+                    data laporan
+                </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('datalaporanall.index') }}">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Rekap Kegiatan</span></a>
+                </li>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Heading -->
 
@@ -72,13 +82,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="/userdata">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>data user</span></a>
+                    <span>Data User</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/datakategori">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>data kategori</span></a>
+                    <span>Data Kategori</span></a>
             </li>
             @endif
 

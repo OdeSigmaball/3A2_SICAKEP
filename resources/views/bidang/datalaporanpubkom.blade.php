@@ -28,14 +28,14 @@
                     <i class="fas fa-home"></i> Dashboard
                 </a>
             </li>
-            <li class="breadcrumb-item active text-dark" aria-current="page">Data Laporan Sekretariat Dinas</li>
+            <li class="breadcrumb-item active text-dark" aria-current="page">Data Laporan Publikasi dan Dokumentasi</li>
         </ol>
     </div>
 
     <!-- Main Content -->
     <div class="mb-4 shadow card">
         <div class="py-3 card-header d-flex justify-content-between align-items-center">
-            <h4 class="m-0 font-weight-bold text-primary">Data Laporan Kegiatan Sekretariat Dinas</h4>
+            <h4 class="m-0 font-weight-bold text-primary">Data Laporan Publikasi dan Dokumentasi </h4>
             <button class="btn btn-primary" data-toggle="modal" data-target="#tambahDataModal">
                 <i class="fas fa-plus"></i> Tambah Data
             </button>

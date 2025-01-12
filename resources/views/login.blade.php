@@ -44,11 +44,11 @@
     <div>
       <div class="mb-4 text-center title-section">
         <img src="../images/Logo Tut Wuri Handayani.png" alt="Tut Wuri Handayani Logo" class="w-8" width="150">
-        <img src="../images/Logo BPMP.png" alt="BPMP Logo" class="w-10 mr-1" width="150">
         <img src="../images/Logo Dinas Pendidikan Kabupaten Bangli.png" alt="Tut Wuri Handayani Logo" class="w-8 mr-1" width="150">
+        <img src="../images/Logo BPMP.png" alt="BPMP Logo" class="w-10 mr-1" width="150">
 
         <h3 class="font-weight-bold">Sistem Informasi Capaian Kinerja dan Realisasi Program</h3>
-        <h2 class="font-weight-bold">SI CAKEP</h2>
+        <h5 style="font-weight: bold;">("SICAKEP")</h5>
         <h5>Dinas Pendidikan Kepemudaan dan Olahraga Kabupaten Bangli</h5>
       </div>
 

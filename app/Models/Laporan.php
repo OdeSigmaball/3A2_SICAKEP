@@ -37,4 +37,9 @@ class Laporan extends Model
     {
         return $this->belongsTo(Kategori::class, 'id_kategori');
     }
+
+    public function laporan()
+    {
+        return $this->hasMany(Laporan::class, 'id_kategori'); // Sesuaikan nama foreign key jika berbeda
+    }
 }

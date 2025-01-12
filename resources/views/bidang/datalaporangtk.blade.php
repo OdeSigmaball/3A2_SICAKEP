@@ -131,10 +131,6 @@
                 <div class="modal-body">
                     <form action="{{ route('datalaporangtk.store') }}" method="POST">
                         @csrf
-                        <div class="form-group">
-
-                            <input type="text" name="user_upload" id="nama_laporan" class="form-control" value="{{Auth::user()->username}}">
-                        </div>
                         <div class="mb-3">
                             <label for="namaKegiatan" class="form-label">Nama Kegiatan</label>
                             <input type="text" class="form-control" id="namaKegiatan" name="nama_kegiatan" placeholder="Masukkan nama kegiatan" required>
