@@ -2,14 +2,25 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\User;
 use App\Models\Laporan;
 use App\Models\Kategori;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Services\GoogleDriveService;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DataAllController extends Controller
 {
+    public function __construct(GoogleDriveService $googleDriveService)
+    {
+        $this->googleDriveService = $googleDriveService;
+    }
+    private $googleDriveService;
     public function dataV(request $request)
     {
         $users = User::all();
@@ -46,7 +57,7 @@ class DataAllController extends Controller
         }
 
         // Ambil data kegiatan yang difilter
-        $kegiatan = $query->paginate(5);
+        $kegiatan = $query->orderBy('created_at', 'desc')->paginate(5);
 
         // Kirim data filter dan kegiatan ke view
 
@@ -61,4 +72,30 @@ class DataAllController extends Controller
 
         return view('bidang/datalaporanallshow', compact('kegiatan'),['judul' => 'Data Laporan GTK']);
     }
+
+    public function downloadFile($fileId)
+    {
+        try {
+            $response = $this->googleDriveService->downloadFile($fileId);
+
+            return response()->streamDownload(function () use ($response) {
+                echo $response->getBody();
+            }, $response->getHeaderLine('Content-Disposition'));
+        } catch (\Exception $e) {
+            Log::error('Error downloading file: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to download file.');
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -46,6 +46,7 @@
                         <th scope="col">dibuat</th>
 
                         <th scope="col">Action</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -59,6 +60,7 @@
                         <td>{{$k->created_at}}</td>
 
                         <td>
+                            <a href="{{ route('downloadFile', $k->dokumen) }}" class="btn btn-primary">Unduh</a>
 
 
                         </td>

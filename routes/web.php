@@ -92,7 +92,7 @@ Route::middleware(['auth','bidang:admin'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     // Resource route untuk KegiatanController
     Route::get('/bidang/datalaporangtk', [KegiatanController::class, 'index'])->name('datalaporangtk.index');
-    Route::post('/bidang/datalaporangtk/store', [KegiatanController::class, 'storedok'])->name('laporan.store');
+    // Route::post('/bidang/datalaporangtk/store', [KegiatanController::class, 'storedok'])->name('laporan.store');
     Route::post('/bidang/datalaporangtk', [KegiatanController::class, 'store'])->name('datalaporangtk.store');
     Route::post('bidang/datalaporangtk/{kegiatan}/upload', [KegiatanController::class, 'uploadFile'])->name('datalaporangtk.upload');
     Route::post('bidang/datalaporangtk/hapus/{id_kegiatan}', [KegiatanController::class, 'deleteFolderByName'])->name('deleteFolderByName');
@@ -102,8 +102,8 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     // Route untuk bidang PAUD
     Route::get('/bidang/datalaporanpaud', [KegiatanController::class, 'paudV'])->name('datalaporanpaud.index');
-    Route::post('/bidang/datalaporanpaud/store', [KegiatanController::class, 'store'])->name('datalaporanpaud.store');
-    Route::post('/bidang/datalaporanpaud/{kegiatan}/upload', [KegiatanController::class, 'uploadFile'])->name('datalaporanpaud.upload');
+    Route::post('/bidang/datalaporanpaud', [KegiatanController::class, 'store'])->name('datalaporanpaud.store');
+    Route::post('/bidang/datalaporanpaud/{kegiatan}/upload', 'KegiatanController@uploadFile')->name('datalaporanpaud.upload');
     Route::post('/bidang/datalaporanpaud/hapus/{id_kegiatan}', [KegiatanController::class, 'deleteFolderByName'])->name('datalaporanpaud.delete');
 });
 Route::middleware(['auth'])->group(function () {
@@ -141,9 +141,17 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+// Rute untuk mengunduh file laporan
+// Route::get('/laporan/download/{id}', [LaporanController::class, 'downloadFile'])->name('downloadFile');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/bidang/datalaporanall', [DataAllController::class, 'dataV'])->name('datalaporanall.index');
-    Route::post('/bidang/{id_kegiatan}/datalaporanallshow', [DataAllController::class, 'showlaporan'])->name('laporan.show');
+   // Route::post('/bidang/{id_kegiatan}/datalaporanallshow', [DataAllController::class, 'showlaporan'])->name('laporan.show');
+   Route::post('/bidang/{id_kegiatan}/datalaporanallshow', [DataAllController::class, 'showlaporan'])->name('laporan.show');
+
+    Route::any('/bidang/{laporan}/datalaporanallshow', [DataAllController::class, 'downloadFile'])->name('donlot');
+    Route::post('/bidang/{id_laporan}/download', [DataAllController::class, 'downloadFile'])->name('laporan.download');
+    Route::get('/bidang/download/{fileId}', [DataAllController::class, 'downloadFile'])->name('downloadFile');
 
 });
 // Route::get('/bidang/datalaporanpaud', [KegiatanController::class, 'paudV']);

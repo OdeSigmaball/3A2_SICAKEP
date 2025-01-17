@@ -82,7 +82,7 @@
                         <option value="GTK" {{ $bidang == 'GTK' ? 'selected' : '' }}>Guru dan Kependidikan</option>
                         <option value="PAUD" {{ $bidang == 'PAUD' ? 'selected' : '' }}>Pendidikan Anak Usia Dini</option>
                         <option value="PUBKOM" {{ $bidang == 'PUBKOM' ? 'selected' : '' }}>Publikasi DOkumentasi</option>
-                        <option value="SEKDIS" {{ $bidang == 'PUBKOM' ? 'selected' : '' }}>Sekretariat Dinas</option>
+                        {{-- <option value="SEKDIS" {{ $bidang == 'PUBKOM' ? 'selected' : '' }}>Sekretariat Dinas</option> --}}
                         <option value="SD_SMP" {{ $bidang == 'PUBKOM' ? 'selected' : '' }}>Sekolah Dasar dan Menengah</option>
                     </select>
                 </div>
@@ -134,12 +134,12 @@
                         <td>
 
 
-                                <a href="">
-                            <form class="p-0 m-0 btn btn-primar" method="post" action="{{route('laporan.show',$k->id_kegiatan)}}">
+
+                            <form class="p-0 m-0 btn btn-primar" method="POST" action="{{route('laporan.show',$k->id_kegiatan)}}">
                                 @csrf
                                 <button type="submit" class="mr-3 btn btn-primary">Detail</i></button>
                             </form>
-                            </a>
+
                         </td>
                         </tr>
                         @endforeach
@@ -147,7 +147,7 @@
                     </table>
 
             </div>
-            <div class="d-flex justify-content-center mt-4">
+            <div class="mt-4 d-flex justify-content-center">
                 {{ $kegiatan->links() }}
             </div>
         </div>

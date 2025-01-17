@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer('id_kegiatan');
             $table->string('user_upload');
             $table->integer('id_kategori');
-            $table->integer('id_media');
             $table->timestamps();
         });
     }

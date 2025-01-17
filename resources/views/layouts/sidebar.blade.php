@@ -47,7 +47,7 @@
                         <a class="collapse-item" href="/bidang/datalaporanpaud">Data Laporan PAUD</a>
                         <a class="collapse-item" href="/bidang/datalaporanpubkom">Data Laporan PUBLIKASI</a>
                         <a class="collapse-item" href="/bidang/datalaporansdsmp">Data Laporan SD & SMP</a>
-                        <a class="collapse-item" href="/bidang/datalaporansekdis">Data Laporan SEKDIS</a>
+                        {{-- <a class="collapse-item" href="/bidang/datalaporansekdis">Data Laporan SEKDIS</a> --}}
 
                     </div>
                 </div>

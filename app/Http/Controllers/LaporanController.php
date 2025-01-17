@@ -55,6 +55,7 @@ class LaporanController extends Controller
             'user_upload' => Auth::user()->username,
             'nama_laporan' => $request->nama_laporan,
             'dokumen' => $uploadedFile->id, // Simpan ID file dari Google Drive
+            'file_name' => $file->getClientOriginalName(), // Simpan ID file dari Google Drive
         ]);
 
 
@@ -124,3 +125,4 @@ class LaporanController extends Controller
 
 
 }
+

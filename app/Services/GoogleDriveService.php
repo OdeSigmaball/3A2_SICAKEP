@@ -116,6 +116,29 @@ class GoogleDriveService
 }
 
 
+public function downloadFile($fileId)
+{
+    try {
+        $file = $this->driveService->files->get($fileId, [
+            'alt' => 'media'
+        ]);
+
+        $response = $this->driveService->files->get($fileId, [
+            'fields' => 'name',
+        ]);
+
+        $fileName = $response->name;
+
+        return new \GuzzleHttp\Psr7\Response(200, [
+            'Content-Type' => 'application/octet-stream',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ], $file->getBody());
+    } catch (\Exception $e) {
+        Log::error('Google Drive Download Error: ' . $e->getMessage());
+        throw new \Exception('Failed to download file from Google Drive.');
+    }
+}
+
 
 
 
@@ -123,5 +146,4 @@ class GoogleDriveService
 
 
 }
-
 ?>

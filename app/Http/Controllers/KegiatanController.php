@@ -42,7 +42,7 @@ class KegiatanController extends Controller
         public function paudV()
     {
         $users = User::all();
-        $kegiatans = Kegiatan::where('bidang', 'PAUD')->get(); // Hanya kegiatan bidang PAUD
+        $kegiatans = Kegiatan::where('bidang', 'PAUD')->orderBy('created_at','desc')->get(); // Hanya kegiatan bidang PAUD
         $kategoris = Kategori::all();
 
         return view('bidang.datalaporanpaud', compact('users', 'kegiatans', 'kategoris'), ['judul' => 'Data Laporan PAUD']);

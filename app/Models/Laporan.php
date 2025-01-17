@@ -16,6 +16,7 @@ class Laporan extends Model
     protected $fillable = [
         'nama_laporan',
         'dokumen',
+        'file_name',
         'id_kegiatan',
         'user_upload',
         'id_media',
