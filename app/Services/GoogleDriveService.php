@@ -119,25 +119,27 @@ class GoogleDriveService
 public function downloadFile($fileId)
 {
     try {
-        $file = $this->driveService->files->get($fileId, [
-            'alt' => 'media'
-        ]);
-
+        // Mendapatkan metadata file (seperti nama file)
         $response = $this->driveService->files->get($fileId, [
             'fields' => 'name',
         ]);
-
         $fileName = $response->name;
 
+        // Mendownload isi file
+        $httpClient = $this->driveService->getClient()->authorize();
+        $request = $httpClient->request('GET', "https://www.googleapis.com/drive/v3/files/{$fileId}?alt=media");
+
+        // Membuat respons HTTP untuk mengirimkan file ke user
         return new \GuzzleHttp\Psr7\Response(200, [
-            'Content-Type' => 'application/octet-stream',
-            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
-        ], $file->getBody());
+            'Content-Type' => $request->getHeaderLine('Content-Type'),
+            'Content-Disposition' =>$fileName,
+        ], $request->getBody());
     } catch (\Exception $e) {
         Log::error('Google Drive Download Error: ' . $e->getMessage());
         throw new \Exception('Failed to download file from Google Drive.');
     }
 }
+
 
 
 

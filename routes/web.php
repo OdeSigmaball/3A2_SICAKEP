@@ -150,7 +150,6 @@ Route::middleware(['auth'])->group(function () {
    Route::post('/bidang/{id_kegiatan}/datalaporanallshow', [DataAllController::class, 'showlaporan'])->name('laporan.show');
 
     Route::any('/bidang/{laporan}/datalaporanallshow', [DataAllController::class, 'downloadFile'])->name('donlot');
-    Route::post('/bidang/{id_laporan}/download', [DataAllController::class, 'downloadFile'])->name('laporan.download');
     Route::get('/bidang/download/{fileId}', [DataAllController::class, 'downloadFile'])->name('downloadFile');
 
 });
